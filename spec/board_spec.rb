@@ -96,6 +96,23 @@ describe Board do
       subject.fire_missle(2,2)
       expect{subject.fire_missle(2,2)}.to raise_error "already fired at this location"
     end
+
+    it "should register a miss" do
+      subject.fire_missle(3,3)
+      subject.fire_missle(2,2)
+      expect(subject.misses).to eql([[3,3],[2,2]])
+    end
+
+    it 'should register a hit' do
+        ship1 = double(:ship1)
+        allow(ship1).to receive(:size).and_return(2)
+        allow(ship1).to receive(:body).and_return([{:grid_coords => [1,1]},{:grid_coords => [1,2]}])
+        subject.place_ship(ship1, 1, 1, 'south')
+        subject.fire_missle(1,1)
+        expect(subject.hits).to eql([[1,1]])
+    end
+
+
     # it "firing missle at ships" do
     #   ship1 = double(:ship1)
     #   ship2 = double(:ship2)
