@@ -114,7 +114,6 @@ class Board
 
   def show_my_board 
     ship_not_hit = ship_coords - @hits 
-    #hits, misses, ocean
     (0...size).each do |x|
       print '[ '
       (0...size).each do |y|
