@@ -44,7 +44,6 @@ describe Board do
     end
   end
 
-
   describe '#place_ship' do
     it 'appends a ship to the ships array on the board' do
       ship1 = double(:ship)
@@ -54,9 +53,10 @@ describe Board do
       board1.place_ship(ship1,2,3,'south')
       expect(board1.ships.first).to eql(ship1)
     end
+  end
 
   describe '#current_ship_coords' do
-    it "wef" do
+    it "current_ship_coords" do
       ship1 = double(:ship1)
       ship2 = double(:ship2)
       allow(ship1).to receive(:body).and_return([{:grid_coords => [1,1]},{:grid_coords => [1,2]}])
@@ -70,7 +70,7 @@ describe Board do
       expect(board1.ship_coords).to eql([[1,1], [1,2], [2,3], [2,4]])
     end
 
-    it "wef" do
+    it "should know when ships overlap" do
       ship1 = double(:ship1)
       ship2 = double(:ship2)
       ship3 = double(:ship3)
@@ -111,21 +111,6 @@ describe Board do
         subject.fire_missle(1,1)
         expect(subject.hits).to eql([[1,1]])
     end
-
-
-    # it "firing missle at ships" do
-    #   ship1 = double(:ship1)
-    #   ship2 = double(:ship2)
-    #   ship3 = double(:ship3)
-    # end
   end
 
-    # it "updates the ship coordinates" do
-    #   ship1 = double(:ship)
-    #   board1 = Board.new
-    #   board1.place_ship(ship1,2,3,'south')
-    #   expect(ship1.body[1][:grid_coords]).to eql([3,3])
-    # end
-
-  end
 end

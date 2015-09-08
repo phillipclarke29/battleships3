@@ -11,6 +11,12 @@ class Board
     @ship_coords = nil
     @hits = []
     @misses = []
+    @ocean =[]
+    (0...size).each do |x|
+      (0...size).each do |y|
+        @ocean << [x,y]
+      end
+    end
   end
 
   def new_ship_coords(num,x_coord,y_coord,orientation)
@@ -95,23 +101,56 @@ class Board
       return 'miss'
   end
 
+  def ocean
+    @ocean =[]
+    (0...size).each do |x|
+      (0...size).each do |y|
+        @ocean << [x,y]
+      end
+    end
+    @ocean = @ocean - ship_coords - @misses
+    return @ocean
+  end
+
+  def show_my_board 
+    ship_not_hit = ship_coords - @hits 
+    #hits, misses, ocean
+    (0...size).each do |x|
+      print '[ '
+      (0...size).each do |y|
+        current_coord = [x, y]
+        if @hits.include?(current_coord)
+          print 'Ship-hit      '
+        elsif @misses.include?(current_coord)
+          print 'Ocean-miss    '
+        elsif ship_not_hit.include?(current_coord)
+          print 'Ship-not-hit  '
+        elsif @ocean.include?(current_coord)
+          print 'Ocean         '
+        end
+      end
+      print ']'
+      puts ''
+    end
+  end
+
 end
 
-# board = Board.new
-# ship1 = Ship.new(3)
-# ship2 = Ship.new(4)
-#
-# board.place_ship(ship1,1,1,'south')
-# board.place_ship(ship2,4,4,'east')
-#
-# p board.fire_missle(1,1)
-# p board.fire_missle(2,1)
-# p board.fire_missle(1,3)
-# p board.fire_missle(5,5)
-# p board.fire_missle(4,5)
-# p board.fire_missle(7,6)
-# p board.fire_missle(1,1)
+board = Board.new(4)
+ship1 = Ship.new(3)
+ship2 = Ship.new(2)
 
-# p board.hits
-# p board.misses
-# p board.ship_coords
+board.place_ship(ship1,0,1,'south')
+board.place_ship(ship2,2,2,'east')
+
+p board.fire_missle(1,1)
+p board.fire_missle(2,1)
+p board.fire_missle(3,1)
+p board.fire_missle(3,2)
+p board.fire_missle(1,2)
+
+p board.hits
+p board.misses
+p board.ship_coords - board.hits
+p board.ocean
+board.show_my_board
