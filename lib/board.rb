@@ -156,6 +156,53 @@ class Board
 
 end
 
+def game1
+
+  board_A = Board.new
+  board_B = Board.new
+
+puts ""
+puts "     Player A's board    "
+puts ""
+puts ""
+board_A.show_my_board
+puts ""
+puts ""
+puts 'Player A please take the hotseat to place ships.'
+puts 'When ready, pllease enter the position of your first ship'
+puts "Position must be in format [x,y,orientation], for example"
+puts "[0,1,south] or [2,4,north]"
+ship1_position = gets.chomp
+ship1_position.delete!('[')
+ship1_position.delete!(']')
+ship1_position.gsub!(' ','')
+ship1_position = ship1_position.split(',')
+p ship1_position
+board_A.place_ship(Ship.new(4),ship1_position[0].to_i,ship1_position[1].to_i,ship1_position[2])
+puts "Thank you, your ships has been placed at #{ship1_position[0]}-#{ship1_position[1]}"
+puts ""
+p board_A.ships
+puts ""
+puts 'When ready, pllease enter the position of your second ship'
+puts "Position must be in format [x,y,orientation], for example"
+puts "[0,1,south] or [2,4,north]"
+ship2_position = gets.chomp
+ship2_position.delete!('[')
+ship2_position.delete!(']')
+ship2_position.gsub!(' ','')
+ship2_position = ship2_position.split(',')
+board_A.place_ship(Ship.new(4),ship2_position[0].to_i,ship2_position[1].to_i,ship2_position[2])
+puts "Thank you, your ships has been placed at #{ship2_position[0]}-#{ship2_position[1]}"
+puts ''
+puts "   Player_A's board"
+puts ''
+board_A.show_my_board
+
+
+end
+
+game1
+
 def scenario1
   board = Board.new(4)
   ship1 = Ship.new(3)
@@ -177,6 +224,31 @@ def scenario1
   board.show_opponent_board
 end
 
+  # p board = Board.new(4)
+  # board.show_my_board
+  # p ship1 = Ship.new(3)
+  # ship2 = Ship.new(2)
+  # board.place_ship(ship1,0,1,'south')
+  # board.place_ship(ship2,2,2,'east')
+
+  # p board
+  # board.fire_missle(1,1)
+  # board.fire_missle(2,1)
+  # board.fire_missle(3,1)
+  # board.fire_missle(3,2)
+  # p board.show_my_board
+
+  # board.fire_missle(1,1)
+  # board.fire_missle(2,1)
+  # board.fire_missle(3,1)
+  # board.fire_missle(3,2)
+  # board.fire_missle(1,2)
+  # board.hits
+  # board.misses
+  # board.ship_coords - board.hits
+  # board.ocean
+  # board.show_my_board
+
 def scenario2
   board = Board.new(4)
   board.ocean
@@ -196,4 +268,3 @@ def scenario2
   board.show_my_board
 end
 
-scenario1
