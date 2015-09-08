@@ -85,6 +85,10 @@ describe Board do
     end
   end
 
+  describe '#fire_missle' do
+    it { expect(subject).to respond_to(:fire_missle).with(2).argument }
+  end
+
     # it "updates the ship coordinates" do
     #   ship1 = double(:ship)
     #   board1 = Board.new
