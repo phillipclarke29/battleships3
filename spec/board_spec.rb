@@ -32,6 +32,18 @@ describe Board do
     end
   end
 
+  describe '#outside?' do
+    it 'raise error when asked to place a ship outside of grid range' do
+      board = Board.new(6)
+      ship1 = double(:ship_object)
+      allow(ship1).to receive(:size).and_return(3)
+      expect(board.outside?(ship1,4,2,'south')).to eql(true)
+      expect(board.outside?(ship1,1,2,'north')).to eql(true)
+      expect(board.outside?(ship1,4,1,'west')).to eql(true)
+      expect(board.outside?(ship1,4,4,'east')).to eql(true)
+    end 
+  end
+
 
   describe '#place_ship' do
     it 'appends a ship to the ships array on the board' do

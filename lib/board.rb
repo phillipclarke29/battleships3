@@ -36,7 +36,15 @@ class Board
     results
   end
 
-    def place_ship(ship, x_coord, y_coord, orientation)
+  def outside?(ship, x_coord, y_coord, orientation)
+    coords = new_ship_coords(ship.size, x_coord, y_coord, orientation)
+    coords.each do |xy_pair|
+      return true if xy_pair.max >= size || xy_pair.min < 0
+    end
+    return false
+  end
+
+  def place_ship(ship, x_coord, y_coord, orientation)
 
     @ships << ship
     return nil
@@ -46,4 +54,4 @@ end
 
 board = Board.new
 # p board
-p board.new_ship_coords(5,2,3,'west')
+p board.new_ship_coords(3,4,2,'south')
