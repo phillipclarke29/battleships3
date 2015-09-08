@@ -8,6 +8,7 @@ class Board
   def initialize(size=10)
     @size = size
     @ships = []
+    @ship_coords = nil
   end
 
   def new_ship_coords(num,x_coord,y_coord,orientation)
@@ -45,38 +46,54 @@ class Board
     return false
   end
 
-  def current_ship_coords
-    results = []
+  def ship_coords
+    @ship_coords = []
     @ships.each do |ship|
       ship.body.each do |hash|
-        results  << hash[:grid_coords]
+        @ship_coords  << hash[:grid_coords]
       end
     end
-    results
+    @ship_coords
   end
 
+  def overlap?(ship, x_coord, y_coord, orientation)
+    new_coords_to_add = new_ship_coords(ship.size, x_coord, y_coord, orientation)
+    result  = new_coords_to_add & ship_coords
+    if result == []
+      return false
+    else
+      return true
+    end
+  end
 
   def place_ship(ship, x_coord, y_coord, orientation)
+    fail 'outside range' if outside?(ship, x_coord, y_coord, orientation)
+    fail 'overlap?' if overlap?(ship, x_coord, y_coord, orientation)
     @ships << ship
     return nil
   end
 
 end
 
-board = Board.new
-ship1 = Ship.new(3)
-ship2 = Ship.new(4)
+# board = Board.new
+# ship1 = Ship.new(3)
+# ship2 = Ship.new(4)
 
-ship1.body[0][:grid_coords] = "Hello"
+# ship1.body[0][:grid_coords] = "Hello"
 
-board.ships << ship1
-board.ships << ship2
+# board.ships << ship1
+# board.ships << ship2
 
-p board.ships
+# p board.ships
 
-p board.current_ship_coords
+# p board.current_ship_coords
 
 
 # p board
 # p board.new_ship_coords(3,4,2,'south')
 # p board.new_ship_coords(3,4,2,'south')
+
+a = [1,12,13]
+b = [2,3,5,6,6]
+c = a & b
+p c

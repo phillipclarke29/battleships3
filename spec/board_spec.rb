@@ -57,15 +57,31 @@ describe Board do
     it "wef" do
       ship1 = double(:ship1)
       ship2 = double(:ship2)
-      allow(ship1).to receive(:body).and_return([{:grid_coords => "ship 1 part 1"},{:grid_coords => "ship 1 part 2"}])
-      allow(ship2).to receive(:body).and_return([{:grid_coords => "ship 2 part 1"},{:grid_coords => "ship 2 part 2"}])
+      allow(ship1).to receive(:body).and_return([{:grid_coords => [1,1]},{:grid_coords => [1,2]}])
+      allow(ship2).to receive(:body).and_return([{:grid_coords => [2,3]},{:grid_coords => [2,4]}])
       class Board
         attr_accessor :ships
       end
       board1 = Board.new
       board1.ships << ship1
       board1.ships << ship2
-      expect(board1.current_ship_coords).to eql(["ship 1 part 1", "ship 1 part 2", "ship 2 part 1", "ship 2 part 2"])
+      expect(board1.ship_coords).to eql([[1,1], [1,2], [2,3], [2,4]])
+    end
+
+    it "wef" do
+      ship1 = double(:ship1)
+      ship2 = double(:ship2)
+      ship3 = double(:ship3)
+      allow(ship3).to receive(:size).and_return(3)
+      allow(ship1).to receive(:body).and_return([{:grid_coords => [1,1]},{:grid_coords => [1,2]}])
+      allow(ship2).to receive(:body).and_return([{:grid_coords => [2,3]},{:grid_coords => [2,4]}])
+      class Board
+        attr_accessor :ships
+      end
+      board1 = Board.new
+      board1.ships << ship1
+      board1.ships << ship2
+      expect(board1.overlap?(ship3,0,1,'south')).to eql(true)
     end
   end
 
