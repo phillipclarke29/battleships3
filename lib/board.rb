@@ -136,21 +136,41 @@ class Board
 
 end
 
-board = Board.new(4)
-ship1 = Ship.new(3)
-ship2 = Ship.new(2)
+def scenario1
+  board = Board.new(4)
+  ship1 = Ship.new(3)
+  ship2 = Ship.new(2)
+  board.place_ship(ship1,0,1,'south')
+  board.place_ship(ship2,2,2,'east')
+  board.fire_missle(1,1)
+  board.fire_missle(2,1)
+  board.fire_missle(3,1)
+  board.fire_missle(3,2)
+  board.fire_missle(1,2)
+  board.hits
+  board.misses
+  board.ship_coords - board.hits
+  board.ocean
+  board.show_my_board
+end
 
-board.place_ship(ship1,0,1,'south')
-board.place_ship(ship2,2,2,'east')
+def scenario1
+  board = Board.new(4)
+  board.ocean
+  # ship1 = Ship.new(3)
+  # ship2 = Ship.new(2)
+  # board.place_ship(ship1,0,1,'south')
+  # board.place_ship(ship2,2,2,'east')
+  # board.fire_missle(1,1)
+  # board.fire_missle(2,1)
+  # board.fire_missle(3,1)
+  # board.fire_missle(3,2)
+  # board.fire_missle(1,2)
+  # board.hits
+  # board.misses
+  # board.ship_coords - board.hits
+  # board.ocean
+  board.show_my_board
+end
 
-p board.fire_missle(1,1)
-p board.fire_missle(2,1)
-p board.fire_missle(3,1)
-p board.fire_missle(3,2)
-p board.fire_missle(1,2)
-
-p board.hits
-p board.misses
-p board.ship_coords - board.hits
-p board.ocean
-board.show_my_board
+scenario1
