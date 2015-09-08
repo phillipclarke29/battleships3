@@ -49,6 +49,8 @@ describe Board do
     it 'appends a ship to the ships array on the board' do
       ship1 = double(:ship)
       board1 = Board.new
+      allow(ship1).to receive(:size).and_return(2)
+      allow(ship1).to receive(:body).and_return([{:grid_coords => []},{:grid_coords => []}])
       board1.place_ship(ship1,2,3,'south')
       expect(board1.ships.first).to eql(ship1)
     end
@@ -87,6 +89,18 @@ describe Board do
 
   describe '#fire_missle' do
     it { expect(subject).to respond_to(:fire_missle).with(2).argument }
+    it "can't fire missle outside range" do
+      expect{subject.fire_missle(20,20)}.to raise_error "outside range"
+    end
+    it "can't fire if already fired at location" do
+      subject.fire_missle(2,2)
+      expect{subject.fire_missle(2,2)}.to raise_error "already fired at this location"
+    end
+    # it "firing missle at ships" do
+    #   ship1 = double(:ship1)
+    #   ship2 = double(:ship2)
+    #   ship3 = double(:ship3)
+    # end
   end
 
     # it "updates the ship coordinates" do

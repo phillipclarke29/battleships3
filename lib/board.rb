@@ -81,7 +81,7 @@ class Board
 
   def fire_missle(x_coord, y_coord)
     fail 'outside range' if x_coord >= size || y_coord >= size || x_coord < 0 || y_coord < 0
-    fail 'already fired at this location' if hits.include?([x_coord, y_coord]) || misses.include?([x_coord, y_coord]) 
+    fail 'already fired at this location' if hits.include?([x_coord, y_coord]) || misses.include?([x_coord, y_coord])
       ships.each do |ship|
         ship.body.each do |part|
           if part[:grid_coords] == [x_coord, y_coord]
@@ -97,22 +97,21 @@ class Board
 
 end
 
-board = Board.new
-ship1 = Ship.new(3)
-ship2 = Ship.new(4)
-
-board.place_ship(ship1,1,1,'south')
-board.place_ship(ship2,4,4,'east')
-
-p board.fire_missle(1,1)
-p board.fire_missle(2,1)
-p board.fire_missle(1,3)
-p board.fire_missle(5,5)
-p board.fire_missle(4,5)
-p board.fire_missle(7,6)
-p board.fire_missle(1,1)
+# board = Board.new
+# ship1 = Ship.new(3)
+# ship2 = Ship.new(4)
+#
+# board.place_ship(ship1,1,1,'south')
+# board.place_ship(ship2,4,4,'east')
+#
+# p board.fire_missle(1,1)
+# p board.fire_missle(2,1)
+# p board.fire_missle(1,3)
+# p board.fire_missle(5,5)
+# p board.fire_missle(4,5)
+# p board.fire_missle(7,6)
+# p board.fire_missle(1,1)
 
 # p board.hits
 # p board.misses
 # p board.ship_coords
-
