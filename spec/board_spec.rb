@@ -15,17 +15,17 @@ describe Board do
       board = Board.new
       expect(board.new_ship_coords(2,4,5,'south')).to eql([[4, 5], [5, 5]])
     end
-    
+
     it 'returns the correct coords when orientation is north' do
       board = Board.new
       expect(board.new_ship_coords(2,3,6,'north')).to eql([[3, 6], [2, 6]])
     end
-    
+
     it 'returns the correct coords when orientation is east' do
       board = Board.new
       expect(board.new_ship_coords(2,4,5,'east')).to eql([[4, 5], [4, 6]])
     end
-    
+
     it 'returns the correct coords when orientation is west' do
       board = Board.new
       expect(board.new_ship_coords(2,2,3,'west')).to eql([[2, 3], [2, 2]])
@@ -41,7 +41,7 @@ describe Board do
       expect(board.outside?(ship1,1,2,'north')).to eql(true)
       expect(board.outside?(ship1,4,1,'west')).to eql(true)
       expect(board.outside?(ship1,4,4,'east')).to eql(true)
-    end 
+    end
   end
 
 
@@ -52,6 +52,22 @@ describe Board do
       board1.place_ship(ship1,2,3,'south')
       expect(board1.ships.first).to eql(ship1)
     end
+
+  describe '#current_ship_coords' do
+    it "wef" do
+      ship1 = double(:ship1)
+      ship2 = double(:ship2)
+      allow(ship1).to receive(:body).and_return([{:grid_coords => "ship 1 part 1"},{:grid_coords => "ship 1 part 2"}])
+      allow(ship2).to receive(:body).and_return([{:grid_coords => "ship 2 part 1"},{:grid_coords => "ship 2 part 2"}])
+      class Board
+        attr_accessor :ships
+      end
+      board1 = Board.new
+      board1.ships << ship1
+      board1.ships << ship2
+      expect(board1.current_ship_coords).to eql(["ship 1 part 1", "ship 1 part 2", "ship 2 part 1", "ship 2 part 2"])
+    end
+  end
 
     # it "updates the ship coordinates" do
     #   ship1 = double(:ship)
