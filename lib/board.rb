@@ -134,6 +134,27 @@ class Board
     end
   end
 
+  def show_opponent_board
+    ship_not_hit = ship_coords - @hits
+    blank = ocean + ship_not_hit
+
+    (0...size).each do |x|
+      print '[ '
+      (0...size).each do |y|
+        current_coord = [x, y]
+        if @hits.include?(current_coord)
+          print 'Ship-hit      '
+        elsif @misses.include?(current_coord)
+          print 'Ocean-miss    '
+        elsif blank.include?(current_coord)
+          print 'Ocean         '
+        end
+      end
+      print ']'
+      puts ''
+    end
+  end
+
 end
 
 def scenario1
@@ -152,9 +173,12 @@ def scenario1
   board.ship_coords - board.hits
   board.ocean
   board.show_my_board
+  puts ''
+  puts ''
+  board.show_opponent_board
 end
 
-def scenario1
+def scenario2
   board = Board.new(4)
   board.ocean
   # ship1 = Ship.new(3)
