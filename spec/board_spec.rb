@@ -17,5 +17,12 @@ describe Board do
       board1.place_ship(ship1,2,3,'south')
       expect(board1.ships.first).to eql(ship1)
     end
+
+    it "updates the ship coordinates" do
+      ship1 = double(:ship)
+      board1 = Board.new
+      board1.place_ship(ship1,2,3,'south')
+      expect(ship1.body[1][:grid_coords]).to eql([3,3])
+    end
   end
 end
