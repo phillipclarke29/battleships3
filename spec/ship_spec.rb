@@ -19,18 +19,11 @@ describe Ship do
       (0...ship.size).each do |i|
       expect(ship.body[i][:grid_coords]).to eql([])
     end
-  end
 
     it 'should have default body part attributes, with hit false' do
       ship = Ship.new(3)
       (0...ship.size).each do |i|
       expect(ship.body[i][:hit]).to eql(false)
     end
-end
-
-
-
   end
-
-
 end
