@@ -7,7 +7,9 @@ class Ship
   def initialize(size=1)
     @size = size
     @body = []
-    @size.times {@body << Hash.new}
+    @size.times do
+      @body << {grid_coords:[], hit:false}
+    end
   end
 
 end
