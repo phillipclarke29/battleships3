@@ -10,7 +10,7 @@ class Board
     @ship_coords = nil
     @hits = []
     @misses = []
-    @ocean =[]
+    @ocean =[] #generates an array of coordinates see board.ocean
     (0...size).each do |x|
       (0...size).each do |y|
         @ocean << [x,y]
@@ -18,18 +18,18 @@ class Board
     end
   end
 
-  def new_ship_coords(num,x_coord,y_coord,orientation)
+  def new_ship_coords(num,x_coord,y_coord,orientation) #this changes a number (of anything!), coordinates and orientation into an array that we can check
     results = []
-    case orientation
-      when 'south'
-        num.times do
-        results << [x_coord,y_coord]
-        x_coord += 1
+    case orientation # take the orientation
+    when 'south' #when orientattion is south
+        num.times do #do this as many times as the size of the boat
+        results << [x_coord,y_coord]# add the starting coordinate
+        x_coord += 1 #add one to the x axis (so the boat goes south!)
         end
       when 'north'
         num.times do
         results << [x_coord,y_coord]
-        x_coord -= 1
+        x_coord -= 1 #so the boat goes north ....
         end
       when 'east'
         num.times do
@@ -42,13 +42,16 @@ class Board
         y_coord -= 1
         end
     end
-    results
+    results # returns the results array that we can now check against the ocean or boundary of the board
   end
 
-  def outside?(ship, x_coord, y_coord, orientation)
-    coords = new_ship_coords(ship.size, x_coord, y_coord, orientation)
-    coords.each do |xy_pair|
-      return true if xy_pair.max >= size || xy_pair.min < 0
+  def outside?(ship, x_coord, y_coord, orientation) #this is a new ship ship = Ship.new - we are now doing board.place_ship(ship,2,3, "south")
+    pending_coords = new_ship_coords(ship.size, x_coord, y_coord, orientation) #passsing all the variables through the new_ship_coords method - #
+    #this is V important read this very carefull - what is being passed - where? - what is coming back - and notice carefully that we are calling the method
+    #ship.size INSIDE the variable for the new_ship_cords method!!! This enables this bit of code to be free of outside concerns
+    pending_coords.each do |xy_pair|
+      return true if xy_pair.max >= size || xy_pair.min < 0 #logic flows in English - is ship outside?(method with ?) ? we always return true or false bu convention -
+      # is ship outside? True - yes ship is outside - false - no it isn't
     end
     return false
   end
@@ -78,7 +81,8 @@ class Board
     fail 'overlap?' if overlap?(ship, x_coord, y_coord, orientation)
     new_choords = new_ship_coords(ship.size, x_coord, y_coord, orientation)
     (0...ship.size).each do |i|
-      ship.body[i][:grid_coords] = new_choords[i]
+      ship.body[i][:grid_coords] = new_choords[i] #here we are taking the index of the ship body array then we are setting the value of the body part
+      #hash with the key :grid_cords to the value of the new_choords index -
     end
     @ships << ship
     return nil
@@ -90,13 +94,13 @@ class Board
       ships.each do |ship|
         ship.body.each do |part|
           if part[:grid_coords] == [x_coord, y_coord]
-            part[:hit] = true
+            part[:hit] = true #change the value of hit to true - :hit is the key for the hash body part and we are changing the value to true
             @hits << [x_coord, y_coord]
-            return 'hit'
+            return 'You have hit a boat'
           end
         end
       end
-      @misses << [x_coord, y_coord]
+      @misses << [x_coord, y_coord] #if the loop runs with no hits we send the missle co-ord to the misses
       return 'miss'
   end
 
@@ -111,14 +115,14 @@ class Board
     return @ocean
   end
 
-  def show_my_board 
-    ship_not_hit = ship_coords - @hits 
-    (0...size).each do |x|
-      print '[ '
-      (0...size).each do |y|
-        current_coord = [x, y]
-        if @hits.include?(current_coord)
-          print 'Ship-hit      '
+  def show_my_board
+    ship_not_hit = ship_coords - @hits  #returns just the parts of ship not hit - ie removes the hits!
+    (0...size).each do |x| #for every row
+      print '[ ' # create a start of the row
+      (0...size).each do |y| # for each cell on each row
+        current_coord = [x, y] # set coord to current_coord
+        if @hits.include?(current_coord) #does the hits array contain the current_coord
+          print 'Ship-hit      ' #if it does print this
         elsif @misses.include?(current_coord)
           print 'Ocean-miss    '
         elsif ship_not_hit.include?(current_coord)
@@ -284,4 +288,3 @@ def scenario2
   # board.ocean
   board.show_my_board
 end
-
