@@ -25,5 +25,4 @@ class Ship
   end 
 end
 
-# ship1 = Ship.new(3)
-# p ship1
+

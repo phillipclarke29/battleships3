@@ -2,7 +2,6 @@ require_relative 'ship'
 
 class Board
 
-  # attr_accessor :ships
   attr_reader :size, :ships, :hits, :misses
 
   def initialize(size=10)
@@ -201,7 +200,7 @@ board_A.show_my_board
 
 end
 
-game1
+#game1
 
 def scenario1
   board = Board.new(4)
@@ -248,6 +247,24 @@ end
   # board.ship_coords - board.hits
   # board.ocean
   # board.show_my_board
+
+
+
+
+
+#scenario1
+
+
+# a = [1,2,7,{},[1,2],'hello']
+# b = [4,5,6,3,1,2,[1,2],'hello',{}]
+
+# c = a & b
+# p c
+
+# board = Board.new(8)
+
+# p board.ocean
+# p board.show_my_board
 
 def scenario2
   board = Board.new(4)
