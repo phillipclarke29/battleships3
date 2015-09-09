@@ -225,8 +225,9 @@ def scenario1
   puts ''
   puts ''
   board.show_opponent_board
-end
 
+end
+  scenario1
   # p board = Board.new(4)
   # board.show_my_board
   # p ship1 = Ship.new(3)
