@@ -20,9 +20,7 @@ class Ship
         return @sunk
       end
     end
-    @sunk = true
-    return @sunk
-  end 
+    @sunk = true # so we never get to this line until all the :hit key's values are true
+    return @sunk #now we return sunk
+  end
 end
-
-

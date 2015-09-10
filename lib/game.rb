@@ -19,9 +19,8 @@ end
 end
 
 
-#  board1 = Board.new
-#  p board1
+# game = Game.new
 # ship = Ship.new
-# p ship# game1=Game.new
-#
-# p game1.setup_board
+# board = Board.new
+# board.place_ship(ship,2,2,"North")
+# p board
